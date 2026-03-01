@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(__dirname));;
 
 const DATA_FILE = path.join(__dirname, "data.json");
 
@@ -161,3 +161,4 @@ app.get("/getJournals/:email", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+

@@ -115,4 +115,8 @@ app.get("/getJournals/:email", (req, res) => {
     if (!user || !user.journals) return res.json([]);
 
     res.json(user.journals);
+
+});
+app.get("/test", (req, res) => {
+  res.send("Server is working!");
 });

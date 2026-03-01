@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -84,10 +84,10 @@ app.get("/getEntries/:email", (req, res) => {
 
     res.json(user.entries);
 });
-
-app.listen(PORT, () => {
-    console.log("🚀 Server running at http://localhost:3000");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
 /* SAVE JOURNAL */
 app.post("/saveJournal", (req, res) => {
     const { email, text } = req.body;
@@ -117,6 +117,14 @@ app.get("/getJournals/:email", (req, res) => {
     res.json(user.journals);
 
 });
-app.get("/test", (req, res) => {
-  res.send("Server is working!");
+/* ROOT ROUTE */
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+/* START SERVER */
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
